@@ -29,7 +29,7 @@ function onItemSaveComplete(response, status)
 {
  
 	var resultSet = JSON.parse(response);
-	if (resultSet.status.trim() == "success")
+	if (resultSet.status.trim() == "success") 
 	{
 		$("#alertSuccess").text("Successfully saved.");
 		$("#alertSuccess").show();
@@ -60,6 +60,7 @@ function onItemSaveComplete(response, status)
 
 $(document).on("click", "#btnSave", function(event)
 	{
+	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
 		
 	// Clear alerts---------------------
 	 $("#alertSuccess").text("");
@@ -73,10 +74,27 @@ $(document).on("click", "#btnSave", function(event)
 	 {
 		 $("#alertError").text(status);
 		 $("#alertError").show();
+		 
 		 return;
 	 }
 	 
 	 $("#form1").submit();
+	 
+	 
+
+	 $.ajax(
+	 		{
+	 		 url : "HospitalAPI",
+	 		 type : type,
+	 		 data : $("#form1").serialize(),
+	 		 dataType : "text",
+	 		 complete : function(response, status)
+	 		 {
+	 		 onItemSaveComplete(response.responseText, status);
+	 		 }
+	 		}
+	 	);
+	 
 
 	
 	});
@@ -149,10 +167,11 @@ $(document).on("click", ".btnUpdate", function(event)
 		 
 			
 			$("#hidItemIDSave").val($(this).closest("tr").find('#hidItemIDUpdate').val());
-			$("#hospitalName").val($(this).closest("tr").find('td:eq(0)').text());
-			$("#hospitalAddress").val($(this).closest("tr").find('td:eq(1)').text());
-			$("#contNum").val($(this).closest("tr").find('td:eq(2)').text());
-			$("#hospitalCharges").val($(this).closest("tr").find('td:eq(3)').text()); 
+			$("#hospitalID").val($(this).closest("tr").find('#hidItemIDUpdate').val());
+			$("#hospitalName").val($(this).closest("tr").find('#hName').text());
+			$("#hospitalAddress").val($(this).closest("tr").find('#addr').text());
+			$("#contNum").val($(this).closest("tr").find('#cNo').text());
+			$("#hospitalCharges").val($(this).closest("tr").find('#hCharge').text()); 
 
 		});
 

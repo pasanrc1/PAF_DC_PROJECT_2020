@@ -68,10 +68,10 @@ public class Hospital {
 				
 				returnString += " <tr> " +
 								" <td> <input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'/>" + hospitalID + " </td> " +
-								" <td> " + hospitalName + " </td> " +
-								" <td> " + address + " </td> " +
-								" <td> " + contNum + " </td> " +
-								" <td> " + hosCharges + " </td> " ;
+								" <td id='hName'> " + hospitalName + " </td> " +
+								" <td id='addr'> " + address + " </td> " +
+								" <td id='cNo'> " + contNum + " </td> " +
+								" <td id='hCharge'> " + hosCharges + " </td> " ;
 				
 				
 				
@@ -79,7 +79,7 @@ public class Hospital {
 				returnString += "<td> <input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'> </td>" +
 								"<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-itemid='" + hospitalID + "'/>" + "</td> </tr>";
 			}
-			conn.close();
+			
 			returnString += "</table>";
 			
 		}
@@ -101,6 +101,7 @@ public class Hospital {
 		{
 			return "Can not connect with database";
 		} 
+	
 		
 		String QUERY = "INSERT INTO Hospitals VALUES ( ? , ? , ? , ? , ? )";
 		
@@ -114,12 +115,14 @@ public class Hospital {
 			preparedStmt.setDouble(5, Double.parseDouble(hosCharges) );
 			
 			preparedStmt.execute();
-			conn.close();
+			
 			
 			String hospitals = getHospitals();
-			returnString = "{\"status\":\"success\", \"data\": \"" +
-			 hospitals + "\"}";
 			
+			
+			returnString = "{\"status\":\"success\", \"data\": \"" +
+					hospitals + "\"}";
+			System.out.println("This line got executed" + hospitals);
 			
 			
 		}
@@ -152,7 +155,7 @@ public class Hospital {
 			st.setDouble(5,  Double.parseDouble(hosCharges));
 			
 			st.executeUpdate();
-			conn.close();
+			
 			
 			
 			String hospitals = getHospitals();

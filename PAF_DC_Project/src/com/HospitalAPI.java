@@ -60,6 +60,7 @@ public class HospitalAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		Map paras = getParasMap(request);
+		//paras.get("hidItemIDSave").toString()
 		
 		String output = hospital.updateHospital(paras.get("hidItemIDSave").toString(),
 		paras.get("hospitalName").toString(),
