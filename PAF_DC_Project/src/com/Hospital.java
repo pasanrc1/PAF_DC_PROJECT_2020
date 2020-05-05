@@ -40,7 +40,7 @@ public class Hospital {
 			return "Can not connect with database";
 		} 
 		
-		returnString = "<table border='1'> " +
+		returnString = "<table class='table table-dark'> " +
 						" <tr> <th> Hospital ID </th> " +
 						" <th> Hospital Name </th> " +
 						" <th> Address </th> " +
@@ -67,7 +67,7 @@ public class Hospital {
 				//Adding a line
 				
 				returnString += " <tr> " +
-								" <td> <input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'/> </td> " +
+								" <td> <input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'/>" + hospitalID + " </td> " +
 								" <td> " + hospitalName + " </td> " +
 								" <td> " + address + " </td> " +
 								" <td> " + contNum + " </td> " +

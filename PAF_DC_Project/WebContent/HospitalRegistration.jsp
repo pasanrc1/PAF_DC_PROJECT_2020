@@ -42,7 +42,7 @@
     	
     	<div class="form-group">
       		<label for="contNum"> Contact No. :</label>
-      		<input type="tel" class="form-control" id="contNum" placeholder="Enter Contact Number" name="contNum">
+      		<input type="number" class="form-control" id="contNum" placeholder="Enter Contact Number" name="contNum" >
     	</div>
     	
     	<div class="form-group">
@@ -58,15 +58,19 @@
 		</form>
 </div>
 
-	
+<div class="container">
 	<div id="alertSuccess" class="alert alert-success"></div>
 	<div id="alertError" class="alert alert-danger"></div>
+</div>
 	<br />
+	
+<div class="container">
 	<div id="divItemsGrid">
  			<%	
  				Hospital hospital = new Hospital();
  				out.print( hospital.getHospitals() );
  			%>
+</div>
 </div>
 
 
