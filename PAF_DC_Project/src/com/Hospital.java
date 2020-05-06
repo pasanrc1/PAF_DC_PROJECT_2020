@@ -68,10 +68,10 @@ public class Hospital {
 				
 				returnString += " <tr> " +
 								" <td> <input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'/>" + hospitalID + " </td> " +
-								" <td id='hName'> " + hospitalName + " </td> " +
-								" <td id='addr'> " + address + " </td> " +
-								" <td id='cNo'> " + contNum + " </td> " +
-								" <td id='hCharge'> " + hosCharges + " </td> " ;
+								" <td > " + hospitalName + " </td> " +
+								" <td > " + address + " </td> " +
+								" <td > " + contNum + " </td> " +
+								" <td > " + hosCharges + " </td> " ;
 				
 				
 				
@@ -148,13 +148,14 @@ public class Hospital {
 		try {
 			PreparedStatement st = conn.prepareStatement(QUERY);
 			
-			st.setInt(1,  Integer.parseInt(hosId));
-			st.setString(2, hosName);
-			st.setString(3, address);
-			st.setInt(4, Integer.parseInt(contNum));
-			st.setDouble(5,  Double.parseDouble(hosCharges));
 			
-			st.executeUpdate();
+			st.setString(1, hosName);
+			st.setString(2, address);
+			st.setInt(3, Integer.parseInt(contNum));
+			st.setDouble(4,  Double.parseDouble(hosCharges));
+			st.setInt(5,  Integer.parseInt(hosId));
+			
+			int top = st.executeUpdate();
 			
 			
 			
@@ -194,6 +195,9 @@ public class Hospital {
 			returnString = "{\"status\":\"success\", \"data\": \"" +
 					details + "\"}"; 
 			System.out.println("In try of delete" + hosId);
+			
+			Hospital h = new Hospital();
+			h.getHospitals();
 		
 		}
 		catch(Exception e) {

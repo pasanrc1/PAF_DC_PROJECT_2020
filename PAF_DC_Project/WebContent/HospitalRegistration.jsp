@@ -69,6 +69,8 @@
  			<%	
  				Hospital hospital = new Hospital();
  				out.print( hospital.getHospitals() );
+ 				
+ 				
  			%>
 </div>
 </div>
