@@ -10,6 +10,6 @@ Even I did complete this project. it has some issues. I did follow Sir's Videos 
 But when you insert a record, after you should refresh the page manually. I have used Ajax but I could not solve these issues.
 
 
-After you perform insert operation , please refresh the page
+After you perform insert, delete or update operation , please refresh the page
 
 ********************************
