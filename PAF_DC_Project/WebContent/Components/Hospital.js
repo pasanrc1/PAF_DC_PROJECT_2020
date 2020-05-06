@@ -1,4 +1,5 @@
-
+// On loading
+/*
 $(document).ready(function()
 {
 	if ($("#alertSuccess").text().trim() == "")
@@ -19,7 +20,7 @@ $.ajax(
 		 dataType : "text",
 		 complete : function(response, status)
 		 {
-		 onItemSaveComplete(response.responseText, status);
+			 onItemSaveComplete(response.responseText, status);
 		 }
 		}
 	);
@@ -111,7 +112,7 @@ function ValidateForm(){
 		return "Insert a ID for Hospital.";
 	 }
 	// HOS NAME
-	if ($("#hospitalName").val().trim() == "")
+	if ($("#hospitalName").val().trim() == "" || $.isNumeric( $("#hospitalName").val().trim() ) )
 	 {
 		return "Insert Name of Hospital.";
 	 }
@@ -190,7 +191,6 @@ $(document).on("click", ".btnRemove", function(event)
 		 {
 		 url : "HospitalAPI",
 		 type : "DELETE",
-		 data : "hospitalID=" + $(this).data("itemid"),
 		 dataType : "text",
 		 complete : function(response, status)
 		 {
@@ -231,6 +231,143 @@ function onItemDeleteComplete(response, status)
 			$("#alertError").show();
 		}
 }
+
+*/
+
+
+
+
+
+$(document).ready(function()
+{
+	if ($("#alertSuccess").text().trim() == "")
+		{
+			$("#alertSuccess").hide();
+		}
+	$("#alertError").hide();
+	
+
+	
+// Save Button
+$("#btnSave").click(function() {
+	
+	
+	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
+
+	$.ajax(
+			{
+			 url : "HospitalAPI",
+			 type : type,
+			 data : $("#form1").serialize(),
+			 dataType : "text",
+			 complete : function(response, status)
+			 {
+				 onItemSaveComplete(response.responseText, status);
+				 
+			 }
+			}
+		);
+		
+	
+	})
+	
+
+
+// Delete button
+
+$(".btnRemove").click(function() {
+	// Get hos id of the record to be deleted.
+	var hostpitalID = $(this).attr('data-itemid');
+	
+	
+	$.ajax({
+		url: "HospitalAPI"+ '?' + $.param({"ID": hostpitalID}),
+		type: "DELETE",
+		dataType: "text",
+		complete:function(response, status){
+			onDeletecomplete(response.responseText, status);
+			
+		}
+	})
+	
+})
+
+
+  }); 
+
+
+
+
+
+
+	
+
+//After deletion
+function onDeletecomplete(response, status){
+	
+		if (status == "success")
+		{
+			var resultSet = JSON.parse(response);
+			
+			if (resultSet.status.trim() == "success")
+			{
+				$("#alertSuccess").text("Successfully deleted.");
+				$("#alertSuccess").show();
+				$("#divItemsGrid").html(resultSet.data);
+			}
+			else if (resultSet.status.trim() == "error")
+				{
+					$("#alertError").text(resultSet.data);
+					$("#alertError").show();
+				}
+			} 
+			else if (status == "error")
+			{
+				$("#alertError").text("Error while deleting.");
+				$("#alertError").show();
+			} 
+			else
+			{
+				$("#alertError").text("Unknown error while deleting..");
+				$("#alertError").show();
+			}
+}
+
+
+function onItemSaveComplete(response, status)
+{
+ 
+	var resultSet = JSON.parse(response);
+	if (resultSet.status.trim() == "success") 
+	{
+		$("#alertSuccess").text("Successfully saved.");
+		$("#alertSuccess").show();
+		$("#divItemsGrid").html(resultSet.data);
+	} 
+	else if (resultSet.status.trim() == "error")
+	{
+		$("#alertError").text(resultSet.data);
+		$("#alertError").show();
+	}
+
+	else if (status == "error")
+	{
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
+	}
+	else
+	{
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
+	}
+
+	$("#hidItemIDSave").val("");
+	$("#form1")[0].reset();
+
+}
+
+
+
 
 
 

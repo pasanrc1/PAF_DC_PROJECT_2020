@@ -80,7 +80,8 @@ public class HospitalAPI extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		Map paras = getParasMap(request);
-		 String output = hospital.deleteHospital(paras.get("itemID").toString());
+		 String output = hospital.deleteHospital( request.getParameter("ID"));
+		 System.out.println("ID = " + request.getParameter("ID"));
 		response.getWriter().write(output); 
 		
 		

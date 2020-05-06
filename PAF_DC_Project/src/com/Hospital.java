@@ -188,12 +188,12 @@ public class Hospital {
 			PreparedStatement st = conn.prepareStatement(QUERY);
 			st.setInt(1,  Integer.parseInt(hosId));
 			st.executeUpdate();
-			conn.close();
+			
 			
 			String details = getHospitals();
 			returnString = "{\"status\":\"success\", \"data\": \"" +
 					details + "\"}"; 
-			
+			System.out.println("In try of delete" + hosId);
 		
 		}
 		catch(Exception e) {
